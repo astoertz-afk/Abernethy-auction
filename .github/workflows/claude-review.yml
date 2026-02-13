@@ -19,6 +19,13 @@ jobs:
 
       - uses: anthropics/claude-code-action@v1
         with:
-          prompt: "/review"
+          prompt: |
+            Review this PR extensively. For each changed file, provide:
+            1. A summary of what changed and why
+            2. Specific inline comments on any issues (bugs, accessibility, performance, best practices)
+            3. Check for mobile responsiveness issues, CSS specificity conflicts, and cross-browser concerns
+            4. Verify links and external resources are correct
+            5. Suggest improvements where applicable
+            Be thorough and detailed. Leave inline review comments on specific lines where relevant.
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          claude_args: "--max-turns 5"
+          claude_args: "--max-turns 10"
