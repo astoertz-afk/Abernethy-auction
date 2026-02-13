@@ -632,6 +632,38 @@
     margin-bottom: 0.75rem;
     color: var(--fg);
     text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+    cursor: pointer;
+    transition: text-shadow 0.3s ease, color 0.3s ease;
+  }
+
+  .dresscode-title.neon-buzz {
+    animation: neon-flicker 2.5s ease-in-out forwards;
+  }
+
+  @keyframes neon-flicker {
+    0%    { color: var(--fg); text-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
+    4%    { color: var(--neon-pink); text-shadow: 0 0 8px var(--neon-pink), 0 0 30px var(--neon-pink); }
+    6%    { color: var(--fg); text-shadow: none; }
+    10%   { color: var(--neon-pink); text-shadow: 0 0 10px var(--neon-pink), 0 0 40px var(--neon-pink); }
+    12%   { color: var(--fg); text-shadow: none; }
+    14%   { color: var(--neon-pink); text-shadow: 0 0 6px var(--neon-pink), 0 0 25px var(--neon-pink); }
+    18%   { color: var(--fg); text-shadow: none; }
+    25%   { color: var(--neon-blue); text-shadow: 0 0 12px var(--neon-blue), 0 0 40px var(--neon-blue); }
+    28%   { color: var(--fg); text-shadow: none; }
+    30%   { color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue), 0 0 35px var(--neon-blue); }
+    40%   { color: var(--neon-violet); text-shadow: 0 0 14px var(--neon-violet), 0 0 45px var(--neon-violet); }
+    42%   { color: var(--fg); text-shadow: none; }
+    44%   { color: var(--neon-violet); text-shadow: 0 0 8px var(--neon-violet), 0 0 30px var(--neon-violet); }
+    55%   { color: var(--neon-green); text-shadow: 0 0 12px var(--neon-green), 0 0 40px var(--neon-green); }
+    57%   { color: var(--fg); text-shadow: none; }
+    60%   { color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green), 0 0 35px var(--neon-green); }
+    70%   { color: var(--neon-orange); text-shadow: 0 0 12px var(--neon-orange), 0 0 40px var(--neon-orange); }
+    73%   { color: var(--fg); text-shadow: none; }
+    76%   { color: var(--neon-orange); text-shadow: 0 0 8px var(--neon-orange), 0 0 25px var(--neon-orange); }
+    85%   { color: var(--neon-blue); text-shadow: 0 0 15px var(--neon-blue), 0 0 50px var(--neon-blue); }
+    88%   { color: var(--fg); text-shadow: none; }
+    92%   { color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue), 0 0 35px var(--neon-blue); }
+    100%  { color: var(--fg); text-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
   }
 
   .dresscode p {
@@ -1252,6 +1284,19 @@
     }, { threshold: 0 });
     stickyObserver.observe(hero);
   }
+
+  // Easter egg: neon flicker on Gallery Glam title
+  (() => {
+    const title = document.querySelector('.dresscode-title');
+    if (!title) return;
+    title.addEventListener('click', () => {
+      if (title.classList.contains('neon-buzz')) return;
+      title.classList.add('neon-buzz');
+      title.addEventListener('animationend', () => {
+        title.classList.remove('neon-buzz');
+      }, { once: true });
+    });
+  })();
 </script>
 
 </body>
