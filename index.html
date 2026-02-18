@@ -504,7 +504,7 @@
 
   /* ========== WHY SECTION ========== */
   .why-section {
-    padding: 4rem 1.5rem;
+    padding: 2.5rem 1.5rem;
     text-align: center;
     max-width: 650px;
     margin: 0 auto;
@@ -537,7 +537,7 @@
 
   /* ========== SECTIONS ==========*/
   .section {
-    padding: 5rem 1.5rem;
+    padding: 3rem 1.5rem;
     position: relative;
     max-width: 800px;
     margin: 0 auto;
@@ -879,6 +879,33 @@
   .prize-tag:nth-child(3):hover { border-color: var(--neon-orange); color: var(--neon-orange); box-shadow: 0 0 12px rgba(255, 94, 58, 0.3); }
   .prize-tag:nth-child(4):hover { border-color: var(--neon-green); color: var(--neon-green); box-shadow: 0 0 12px rgba(200, 255, 0, 0.3); }
 
+  /* ========== DONORS ========== */
+  .donor-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .donor-tag {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--fg);
+    transition: all 0.3s ease;
+  }
+  .donor-tag:nth-child(5n+1):hover { border-color: var(--neon-pink); color: var(--neon-pink); box-shadow: 0 0 12px rgba(255, 45, 155, 0.3); }
+  .donor-tag:nth-child(5n+2):hover { border-color: var(--neon-blue); color: var(--neon-blue); box-shadow: 0 0 12px rgba(0, 212, 255, 0.3); }
+  .donor-tag:nth-child(5n+3):hover { border-color: var(--neon-orange); color: var(--neon-orange); box-shadow: 0 0 12px rgba(255, 94, 58, 0.3); }
+  .donor-tag:nth-child(5n+4):hover { border-color: var(--neon-green); color: var(--neon-green); box-shadow: 0 0 12px rgba(200, 255, 0, 0.3); }
+  .donor-tag:nth-child(5n+5):hover { border-color: var(--neon-violet); color: var(--neon-violet); box-shadow: 0 0 12px rgba(178, 75, 243, 0.3); }
+
   .section-body {
     font-size: 0.85rem;
     color: var(--muted);
@@ -1102,7 +1129,7 @@
   @media (min-width: 768px) {
     body { font-size: 16px; }
     .hero { padding: 8rem 3rem; }
-    .section { padding: 6rem 3rem; }
+    .section { padding: 4rem 3rem; }
     .details-grid { grid-template-columns: repeat(4, 1fr); }
     .hero-title .line-artful { -webkit-text-stroke-width: 3px; }
     .lot-card { padding: 3rem 2.5rem; }
@@ -1317,6 +1344,24 @@
 
   <div class="section-content reveal">
     <a href="mailto:auction@supportabernethy.org" class="btn btn-outline">Donate a Prize</a>
+  </div>
+</section>
+
+<!-- ===== DONORS ===== -->
+<section class="section">
+  <div class="section-content reveal">
+    <p class="section-label">Thank You</p>
+    <h2 class="section-title">Big love to our <em>donors</em></h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="donor-tags reveal">
+    <a href="https://porquenotacos.square.site/" class="donor-tag" target="_blank" rel="noopener">&iquest;Por Qu&eacute; No?!</a>
+    <a href="https://www.portlandnursery.com/" class="donor-tag" target="_blank" rel="noopener">Portland Nursery</a>
+  </div>
+
+  <div class="section-content reveal">
+    <a href="mailto:auction@supportabernethy.org" class="btn btn-outline">Become a Donor</a>
   </div>
 </section>
 
