@@ -1205,7 +1205,7 @@
 <body>
 
 <!-- Countdown pill -->
-<a class="countdown-pill" id="countdownPill" href="https://abernethyelementaryschool.betterworld.org/events/artful-affair-person-auction" target="_blank" rel="noopener noreferrer">
+<a class="countdown-pill" id="countdownPill" href="https://abernethyelementaryschool.betterworld.org/events/artful-affair-person-auction" target="_blank" rel="noopener noreferrer" aria-label="Countdown to ticket deadline">
   <span class="cd-label"></span>
   <span class="cd-time"></span>
 </a>
@@ -1552,6 +1552,7 @@
       if (!active) {
         labelEl.textContent = '';
         timeEl.innerHTML = milestones[milestones.length - 1].done;
+        clearInterval(timer);
         return;
       }
       labelEl.textContent = active.label;
@@ -1561,14 +1562,14 @@
       var m = Math.floor((diff % 3600000) / 60000);
       var s = Math.floor((diff % 60000) / 1000);
       timeEl.innerHTML =
-        d + '<span>D</span> ' +
+        String(d).padStart(2, '0') + '<span>D</span> ' +
         String(h).padStart(2, '0') + '<span>H</span> ' +
         String(m).padStart(2, '0') + '<span>M</span> ' +
         String(s).padStart(2, '0') + '<span>S</span>';
     }
 
     tick();
-    setInterval(tick, 1000);
+    var timer = setInterval(tick, 1000);
   })();
 </script>
 
