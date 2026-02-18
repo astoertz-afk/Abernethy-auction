@@ -1537,7 +1537,7 @@
   (function() {
     var milestones = [
       { label: 'Early Bird Pricing Ends', date: new Date('2026-03-01T08:00:00Z'), done: "Let's Go!" },
-      { label: 'Until the party', date: new Date('2026-04-19T07:00:00Z'), done: "Let's Go!" }
+      { label: 'Until the party', date: new Date('2026-04-19T00:00:00Z'), done: "Let's Go!" }
     ];
     var pill = document.getElementById('countdownPill');
     var labelEl = pill.querySelector('.cd-label');
@@ -1556,6 +1556,7 @@
         return;
       }
       labelEl.textContent = active.label;
+      pill.setAttribute('aria-label', active.label);
       var diff = active.date.getTime() - now;
       var d = Math.floor(diff / 86400000);
       var h = Math.floor((diff % 86400000) / 3600000);
@@ -1568,8 +1569,9 @@
         String(s).padStart(2, '0') + '<span>S</span>';
     }
 
+    var timer;
     tick();
-    var timer = setInterval(tick, 1000);
+    timer = setInterval(tick, 1000);
   })();
 </script>
 
