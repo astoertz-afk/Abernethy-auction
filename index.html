@@ -1120,6 +1120,58 @@
     }
   }
 
+  /* ========== COUNTDOWN PILL ========== */
+  .countdown-pill {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 9998;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 45, 155, 0.3);
+    border-radius: 999px;
+    box-shadow: 0 0 12px rgba(255, 45, 155, 0.15);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    opacity: 0;
+    animation: fadeIn 0.6s ease forwards 1.2s;
+  }
+  .countdown-pill:hover {
+    border-color: rgba(255, 45, 155, 0.6);
+    box-shadow: 0 0 18px rgba(255, 45, 155, 0.3);
+  }
+  .countdown-pill .cd-label {
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .countdown-pill .cd-time {
+    color: var(--fg);
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+  }
+  .countdown-pill .cd-time span {
+    color: var(--neon-pink);
+    font-size: 0.65rem;
+  }
+  @media (max-width: 767px) {
+    .countdown-pill {
+      font-size: 0.65rem;
+      padding: 0.4rem 0.75rem;
+      gap: 0.35rem;
+    }
+    .countdown-pill .cd-time span {
+      font-size: 0.55rem;
+    }
+  }
+
   /* ========== RESPONSIVE ========== */
   @media (min-width: 480px) {
     body { font-size: 15px; }
@@ -1151,6 +1203,12 @@
 </style>
 </head>
 <body>
+
+<!-- Countdown pill -->
+<a class="countdown-pill" id="countdownPill" href="https://abernethyelementaryschool.betterworld.org/events/artful-affair-person-auction" target="_blank">
+  <span class="cd-label"></span>
+  <span class="cd-time"></span>
+</a>
 
 <!-- ===== HERO ===== -->
 <header class="hero">
@@ -1474,6 +1532,43 @@
       video.classList.remove('playing');
       playing = false;
     });
+  })();
+  // Countdown pill
+  (function() {
+    var milestones = [
+      { label: 'Early Bird Pricing Ends', date: new Date('2026-03-01T08:00:00Z'), done: "Let's Go!" },
+      { label: 'Until the party', date: new Date('2026-04-19T00:00:00Z'), done: "Let's Go!" }
+    ];
+    var pill = document.getElementById('countdownPill');
+    var labelEl = pill.querySelector('.cd-label');
+    var timeEl = pill.querySelector('.cd-time');
+
+    function tick() {
+      var now = Date.now();
+      var active = null;
+      for (var i = 0; i < milestones.length; i++) {
+        if (milestones[i].date.getTime() > now) { active = milestones[i]; break; }
+      }
+      if (!active) {
+        labelEl.textContent = '';
+        timeEl.innerHTML = milestones[milestones.length - 1].done;
+        return;
+      }
+      labelEl.textContent = active.label;
+      var diff = active.date.getTime() - now;
+      var d = Math.floor(diff / 86400000);
+      var h = Math.floor((diff % 86400000) / 3600000);
+      var m = Math.floor((diff % 3600000) / 60000);
+      var s = Math.floor((diff % 60000) / 1000);
+      timeEl.innerHTML =
+        d + '<span>D</span> ' +
+        String(h).padStart(2, '0') + '<span>H</span> ' +
+        String(m).padStart(2, '0') + '<span>M</span> ' +
+        String(s).padStart(2, '0') + '<span>S</span>';
+    }
+
+    tick();
+    setInterval(tick, 1000);
   })();
 </script>
 
