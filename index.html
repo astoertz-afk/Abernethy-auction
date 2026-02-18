@@ -1205,7 +1205,7 @@
 <body>
 
 <!-- Countdown pill -->
-<a class="countdown-pill" id="countdownPill" href="https://abernethyelementaryschool.betterworld.org/events/artful-affair-person-auction" target="_blank" rel="noopener noreferrer" aria-label="Countdown to ticket deadline">
+<a class="countdown-pill" id="countdownPill" href="https://abernethyelementaryschool.betterworld.org/events/artful-affair-person-auction" target="_blank" rel="noopener noreferrer" aria-label="Countdown to ticket deadline" aria-live="off">
   <span class="cd-label"></span>
   <span class="cd-time"></span>
 </a>
@@ -1536,8 +1536,8 @@
   // Countdown pill
   (function() {
     var milestones = [
-      { label: 'Early Bird Pricing Ends', date: new Date('2026-03-01T08:00:00Z'), done: "Let's Go!" },
-      { label: 'Until the party', date: new Date('2026-04-19T00:00:00Z'), done: "Let's Go!" }
+      { label: 'Early Bird Pricing Ends', date: new Date('2026-03-01T08:00:00Z') },
+      { label: 'Until the party', date: new Date('2026-04-19T00:00:00Z') }
     ];
     var pill = document.getElementById('countdownPill');
     var labelEl = pill.querySelector('.cd-label');
@@ -1551,7 +1551,8 @@
       }
       if (!active) {
         labelEl.textContent = '';
-        timeEl.innerHTML = milestones[milestones.length - 1].done;
+        timeEl.textContent = 'Party Time!';
+        pill.setAttribute('aria-label', 'Party Time!');
         clearInterval(timer);
         return;
       }
