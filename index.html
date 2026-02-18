@@ -131,6 +131,52 @@
     transform: rotate(5deg);
   }
 
+  /* Venue paint */
+  .venue-p1 {
+    width: 70%; height: 60px;
+    background: var(--neon-orange);
+    opacity: 0.15;
+    border-radius: 75% 25% 65% 35% / 50% 50% 55% 45%;
+    filter: blur(30px);
+    top: 40%; left: 15%;
+  }
+
+  /* Venue image */
+  .venue-img {
+    width: 100%;
+    border-radius: 4px;
+    opacity: 0.85;
+    display: block;
+    margin: 2rem 0;
+  }
+
+  /* Venue details */
+  .venue-details {
+    font-size: 0.75rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin: 1.5rem 0;
+    position: relative;
+    z-index: 1;
+  }
+  .venue-details strong {
+    color: var(--fg);
+    font-weight: 700;
+  }
+
+  .venue-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  .venue-links .btn-ghost {
+    font-size: 0.65rem;
+    padding: 0.6rem 1.2rem;
+  }
+
   /* Dresscode paint */
   .dress-p1 {
     width: 85%; height: 55px;
@@ -1171,6 +1217,35 @@
       <p class="label">Win</p>
       <p class="value">Vacation Homes<br>Experiences &amp; Art</p>
     </div>
+  </div>
+</section>
+
+<!-- ===== THE SPACE ===== -->
+<section class="section">
+  <div class="paint venue-p1"></div>
+
+  <div class="section-content reveal">
+    <p class="section-label">The Space</p>
+    <h2 class="section-title">A historic loft <em>on Division</em></h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="reveal">
+    <img src="venue.png" alt="1600 SE Division — industrial loft venue with factory-style windows" class="venue-img">
+  </div>
+
+  <p class="section-body reveal">
+    Built in the 1920s as a neighborhood commercial building, 1600 SE Division was reimagined in 2013&ndash;14 by Emerick Architects into an award-winning warehouse-style loft. The adaptive reuse kept the industrial bones while adding modern, net-zero design — think factory-style windows, exposed structure, and a wraparound roof terrace overlooking the city.
+  </p>
+
+  <div class="venue-details reveal">
+    <strong>1600 SE Division St</strong> &middot; Hosford-Abernethy, Portland<br>
+    Wraparound roof terrace &middot; Factory-style windows &middot; Net-zero building
+  </div>
+
+  <div class="venue-links reveal">
+    <a href="https://www.oregonlive.com/galleries/5IGXM7OEYNFWBH7FMM3OUHMQVQ/" class="btn btn-ghost" target="_blank" rel="noopener">OregonLive Gallery &rarr;</a>
+    <a href="https://www.emerick-architects.com/projects/division-street-2/" class="btn btn-ghost" target="_blank" rel="noopener">Emerick Architects &rarr;</a>
   </div>
 </section>
 
