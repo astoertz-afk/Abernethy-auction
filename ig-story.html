@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>An Artful Affair — IG Story</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0A0A;
+    --fg: #F5F5F5;
+    --neon-pink: #E0207A;
+    --neon-blue: #0098CC;
+    --neon-green: #6B8F00;
+    --neon-orange: #E04A2A;
+    --neon-violet: #8A30C4;
+    --muted: #999;
+    --faint: #555;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 1080px;
+    height: 1920px;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Space Mono', monospace;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+
+  .page {
+    width: 1080px;
+    height: 1920px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ===== PAINT BLOBS ===== */
+  .paint {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .p1 {
+    width: 620px;
+    height: 400px;
+    background: var(--neon-pink);
+    opacity: 0.18;
+    border-radius: 82% 18% 76% 24% / 54% 46% 62% 38%;
+    top: -60px;
+    left: -80px;
+    transform: rotate(-8deg);
+    filter: blur(60px);
+  }
+  .p2 {
+    width: 500px;
+    height: 450px;
+    background: var(--neon-blue);
+    opacity: 0.14;
+    border-radius: 24% 76% 35% 65% / 62% 38% 68% 32%;
+    top: 280px;
+    right: -120px;
+    transform: rotate(14deg);
+    filter: blur(70px);
+  }
+  .p3 {
+    width: 400px;
+    height: 350px;
+    background: var(--neon-violet);
+    opacity: 0.15;
+    border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
+    top: 900px;
+    left: -60px;
+    transform: rotate(-18deg);
+    filter: blur(50px);
+  }
+  .p4 {
+    width: 450px;
+    height: 380px;
+    background: var(--neon-orange);
+    opacity: 0.12;
+    border-radius: 70% 30% 60% 40% / 45% 55% 50% 50%;
+    bottom: 300px;
+    right: -80px;
+    transform: rotate(6deg);
+    filter: blur(60px);
+  }
+  .p5 {
+    width: 550px;
+    height: 300px;
+    background: var(--neon-green);
+    opacity: 0.1;
+    border-radius: 85% 15% 80% 20% / 55% 45% 60% 40%;
+    bottom: -40px;
+    left: 200px;
+    transform: rotate(3deg);
+    filter: blur(50px);
+  }
+
+  /* Dots */
+  .dot {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ===== CONTENT ===== */
+  .content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    padding: 140px 80px 90px;
+  }
+
+  /* Header label */
+  .presents {
+    font-family: 'Space Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 40px;
+  }
+
+  /* Title lockup */
+  .title {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .title .line-an {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 120px;
+    line-height: 0.85;
+    letter-spacing: 0.04em;
+    color: var(--fg);
+  }
+  .title .line-artful {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 220px;
+    line-height: 0.82;
+    letter-spacing: 0.02em;
+    -webkit-text-stroke: 3px var(--neon-pink);
+    color: transparent;
+  }
+  .title .line-affair {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 114px;
+    line-height: 1.05;
+    color: var(--fg);
+    position: relative;
+    display: inline-block;
+    padding: 0 40px;
+  }
+  .title .line-affair::before {
+    content: '';
+    position: absolute;
+    width: 115%;
+    height: 55%;
+    background: var(--neon-pink);
+    opacity: 0.3;
+    border-radius: 82% 18% 76% 24% / 50% 50% 55% 45%;
+    top: 25%;
+    left: -8%;
+    z-index: -1;
+    transform: rotate(-2deg);
+  }
+
+  /* Date/location */
+  .date-line {
+    font-family: 'Space Mono', monospace;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 80px;
+  }
+
+  /* Separator */
+  .sep {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--neon-pink), var(--neon-blue), transparent);
+    opacity: 0.4;
+    margin-bottom: 80px;
+  }
+
+  /* Price */
+  .price-block {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .price-amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 200px;
+    line-height: 0.85;
+    letter-spacing: 0.02em;
+    color: var(--fg);
+  }
+  .price-per {
+    font-size: 24px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-top: 4px;
+  }
+
+  /* Early bird badge */
+  .badge {
+    display: inline-block;
+    background: var(--neon-green);
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    padding: 10px 36px;
+    margin-bottom: 60px;
+  }
+
+  /* Volunteer promo */
+  .promo {
+    text-align: center;
+    margin-bottom: 80px;
+    padding: 30px 50px;
+    border: 2px solid var(--faint);
+    border-radius: 4px;
+  }
+  .promo-label {
+    font-size: 20px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+  .promo-code {
+    font-family: 'Space Mono', monospace;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--neon-green);
+    letter-spacing: 0.08em;
+  }
+  .promo-savings {
+    font-size: 20px;
+    color: var(--muted);
+    margin-top: 8px;
+    letter-spacing: 0.05em;
+  }
+
+  /* URL */
+  .url {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: 0.04em;
+    margin-bottom: 0;
+  }
+
+  /* Bottom handle */
+  .handle {
+    margin-top: auto;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--neon-pink);
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <!-- Paint blobs -->
+  <div class="paint p1"></div>
+  <div class="paint p2"></div>
+  <div class="paint p3"></div>
+  <div class="paint p4"></div>
+  <div class="paint p5"></div>
+
+  <!-- Dots -->
+  <div class="dot" style="width:18px;height:18px;background:var(--neon-pink);top:6%;right:15%;opacity:0.4;"></div>
+  <div class="dot" style="width:12px;height:12px;background:var(--neon-blue);top:48%;right:6%;opacity:0.35;"></div>
+  <div class="dot" style="width:10px;height:10px;background:var(--neon-green);top:32%;left:5%;opacity:0.3;"></div>
+  <div class="dot" style="width:14px;height:14px;background:var(--neon-orange);bottom:20%;left:8%;opacity:0.35;"></div>
+  <div class="dot" style="width:8px;height:8px;background:var(--neon-violet);bottom:40%;right:10%;opacity:0.3;"></div>
+
+  <div class="content">
+    <!-- Header -->
+    <p class="presents">Abernethy Elementary Presents</p>
+
+    <!-- Title -->
+    <div class="title">
+      <div class="line-an">AN</div>
+      <div class="line-artful">ARTFUL</div>
+      <div class="line-affair">Affair</div>
+    </div>
+
+    <!-- Date / Location -->
+    <p class="date-line">April 18, 2026 &middot; Portland</p>
+
+    <!-- Separator -->
+    <div class="sep"></div>
+
+    <!-- Price -->
+    <div class="price-block">
+      <div class="price-amount">$80</div>
+      <p class="price-per">per person</p>
+    </div>
+
+    <!-- Badge -->
+    <span class="badge">EARLY BIRD</span>
+
+    <!-- Volunteer promo -->
+    <div class="promo">
+      <p class="promo-label">Volunteering? Use code</p>
+      <p class="promo-code">Volunteer2026</p>
+      <p class="promo-savings">$30 off per ticket</p>
+    </div>
+
+    <!-- URL -->
+    <p class="url">auction.supportabernethy.org</p>
+
+    <!-- Handle -->
+    <p class="handle">@abernethypta</p>
+  </div>
+</div>
+
+</body>
+</html>
