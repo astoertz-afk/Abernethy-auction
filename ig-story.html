@@ -23,13 +23,11 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   html, body {
-    width: 1080px;
-    height: 1920px;
     background: var(--bg);
     color: var(--fg);
     font-family: 'Space Mono', monospace;
     -webkit-font-smoothing: antialiased;
-    overflow: hidden;
+    overflow-x: hidden;
   }
 
   .page {
@@ -39,6 +37,7 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    transform-origin: top left;
   }
 
   /* ===== PAINT BLOBS ===== */
@@ -333,5 +332,21 @@
   </div>
 </div>
 
+<script>
+  // Scale the 1080x1920 design to fit viewport width
+  function scaleToFit() {
+    var page = document.querySelector('.page');
+    var scale = Math.min(window.innerWidth / 1080, window.innerHeight / 1920);
+    if (scale < 1) {
+      page.style.transform = 'scale(' + scale + ')';
+      document.body.style.height = (1920 * scale) + 'px';
+    } else {
+      page.style.transform = '';
+      document.body.style.height = '';
+    }
+  }
+  scaleToFit();
+  window.addEventListener('resize', scaleToFit);
+</script>
 </body>
 </html>
