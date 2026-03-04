@@ -881,6 +881,33 @@
   .prize-tag:nth-child(4):hover { border-color: var(--neon-green); color: var(--neon-green); box-shadow: 0 0 12px rgba(200, 255, 0, 0.3); }
 
   /* ========== DONORS ========== */
+  .btn-donor {
+    background: transparent;
+    border: 1.5px solid var(--neon-pink);
+    color: var(--neon-pink);
+  }
+  .btn-donor:hover {
+    background: var(--neon-pink);
+    color: var(--bg);
+    box-shadow: 0 0 20px rgba(255, 45, 155, 0.4);
+  }
+  .donor-subheading {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 0.75rem;
+  }
+  .donor-subheading:first-of-type {
+    margin-top: 2rem;
+  }
+  .donor-cta {
+    text-align: center;
+    margin-top: 0.5rem;
+  }
   .major-donors {
     display: flex;
     flex-wrap: wrap;
@@ -1437,11 +1464,14 @@
 <section class="section">
   <div class="section-content reveal">
     <p class="section-label">Thank You</p>
-    <h2 class="section-title">Big love to our <em>65 donors</em></h2>
+    <h2 class="section-title">Big love to our <em>65 business donors</em></h2>
     <div class="divider"></div>
-    <a href="mailto:auction@supportabernethy.org" class="btn btn-outline">Become a Donor</a>
+    <div class="donor-cta">
+      <a href="mailto:auction@supportabernethy.org" class="btn btn-donor">Become a Business Donor</a>
+    </div>
   </div>
 
+  <h3 class="donor-subheading reveal">Top Business Donors</h3>
   <div class="major-donors reveal">
     <a href="https://baxtersports.com/" class="major-donor-tag" target="_blank" rel="noopener">Baxter Sports</a>
     <a href="https://katiportland.com/" class="major-donor-tag" target="_blank" rel="noopener">Kati Thai</a>
@@ -1451,6 +1481,7 @@
     <a href="https://www.skyhookbouldering.com/" class="major-donor-tag" target="_blank" rel="noopener">Skyhook Bouldering</a>
   </div>
 
+  <h3 class="donor-subheading reveal">Business Contributors</h3>
   <div class="donor-tags reveal">
     <a href="https://www.afterglowpdx.com/" class="donor-tag" target="_blank" rel="noopener">Afterglow Pottery Studio</a>
     <a href="https://artistsrep.org/" class="donor-tag" target="_blank" rel="noopener">Artists Repertory Theatre</a>
