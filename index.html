@@ -915,29 +915,40 @@
   .major-donors {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    gap: 1.25rem;
     margin: 1.5rem 0 0.5rem;
     justify-content: center;
     position: relative;
     z-index: 1;
   }
-  .major-donor-tag {
-    padding: 0.7rem 1.5rem;
-    border: 1px solid rgba(255,255,255,0.3);
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+  .major-donor-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    width: 180px;
+    height: 100px;
     text-decoration: none;
-    color: var(--fg);
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-  .major-donor-tag:nth-child(6n+1):hover { border-color: var(--neon-pink); color: var(--neon-pink); box-shadow: 0 0 16px rgba(255, 45, 155, 0.35); }
-  .major-donor-tag:nth-child(6n+2):hover { border-color: var(--neon-blue); color: var(--neon-blue); box-shadow: 0 0 16px rgba(0, 212, 255, 0.35); }
-  .major-donor-tag:nth-child(6n+3):hover { border-color: var(--neon-orange); color: var(--neon-orange); box-shadow: 0 0 16px rgba(255, 94, 58, 0.35); }
-  .major-donor-tag:nth-child(6n+4):hover { border-color: var(--neon-green); color: var(--neon-green); box-shadow: 0 0 16px rgba(200, 255, 0, 0.35); }
-  .major-donor-tag:nth-child(6n+5):hover { border-color: var(--neon-violet); color: var(--neon-violet); box-shadow: 0 0 16px rgba(178, 75, 243, 0.35); }
-  .major-donor-tag:nth-child(6n+6):hover { border-color: var(--neon-pink); color: var(--neon-pink); box-shadow: 0 0 16px rgba(255, 45, 155, 0.35); }
+  .major-donor-logo:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 20px rgba(255,255,255,0.15);
+  }
+  .major-donor-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  @media (max-width: 480px) {
+    .major-donor-logo {
+      width: 140px;
+      height: 80px;
+      padding: 0.75rem 1rem;
+    }
+  }
 
   .donor-tags {
     display: flex;
@@ -1468,7 +1479,7 @@
 <section class="section">
   <div class="section-content reveal">
     <p class="section-label">Thank You</p>
-    <h2 class="section-title">Big love to our <em>65 business donors</em></h2>
+    <h2 class="section-title">Big love to our <em>71 business donors</em></h2>
     <div class="divider"></div>
     <div class="donor-cta">
       <a href="mailto:auction@supportabernethy.org" class="btn btn-donor">Become a Business Donor</a>
@@ -1477,12 +1488,13 @@
 
   <h3 class="donor-subheading donor-subheading--first reveal">Top Business Donors</h3>
   <div class="major-donors reveal">
-    <a href="https://baxtersports.com/" class="major-donor-tag" target="_blank" rel="noopener">Baxter Sports</a>
-    <a href="https://katiportland.com/" class="major-donor-tag" target="_blank" rel="noopener">Kati Thai</a>
-    <a href="https://www.lonefir.fitness/" class="major-donor-tag" target="_blank" rel="noopener">Lone Fir Fitness</a>
-    <a href="https://www.mathnasium.com/" class="major-donor-tag" target="_blank" rel="noopener">Mathnasium of Southeast Portland</a>
-    <a href="https://www.oregonjcc.org/" class="major-donor-tag" target="_blank" rel="noopener">Mittleman Jewish Community Center</a>
-    <a href="https://www.skyhookbouldering.com/" class="major-donor-tag" target="_blank" rel="noopener">Skyhook Bouldering</a>
+    <a href="https://baxtersports.com/" class="major-donor-logo" target="_blank" rel="noopener"><img loading="lazy" src="logos/baxter-sports.png" alt="Baxter Sports"></a>
+    <a href="https://katiportland.com/" class="major-donor-logo" target="_blank" rel="noopener"><img loading="lazy" src="logos/kati-thai.svg" alt="Kati Thai"></a>
+    <a href="https://www.lonefir.fitness/" class="major-donor-logo" target="_blank" rel="noopener"><img loading="lazy" src="logos/lone-fir-fitness.png" alt="Lone Fir Fitness"></a>
+    <a href="https://www.mathnasium.com/math-centers/southeastportland" class="major-donor-logo" target="_blank" rel="noopener"><img loading="lazy" src="logos/mathnasium.jpg" alt="Mathnasium of Southeast Portland"></a>
+    <a href="https://www.oregonjcc.org/" class="major-donor-logo" target="_blank" rel="noopener"><img loading="lazy" src="logos/mittleman-jcc.png" alt="Mittleman Jewish Community Center"></a>
+    <a href="https://senestrarofamilyortho.com/" class="major-donor-logo" target="_blank" rel="noopener"><img loading="lazy" src="logos/senestraro.jpg" alt="Senestraro Orthodontics"></a>
+    <a href="https://www.skyhookbouldering.com/" class="major-donor-logo" target="_blank" rel="noopener"><img loading="lazy" src="logos/skyhook.svg" alt="Skyhook Bouldering"></a>
   </div>
 
   <h3 class="donor-subheading reveal">Business Contributors</h3>
@@ -1498,6 +1510,7 @@
     <a href="https://www.divisioninns.com/" class="donor-tag" target="_blank" rel="noopener">Evermore &amp; Bluebird Guesthouse</a>
     <a href="https://www.experimentpdx.com/" class="donor-tag" target="_blank" rel="noopener">Experiment PDX</a>
     <a href="https://www.farinabakery.com/" class="donor-tag" target="_blank" rel="noopener">Farina Bakery</a>
+    <a href="https://www.fifty-licks.com/" class="donor-tag" target="_blank" rel="noopener">Fifty Licks</a>
     <a href="https://floaton.coop/" class="donor-tag" target="_blank" rel="noopener">Float On</a>
     <a href="https://forpawspdx.com/" class="donor-tag" target="_blank" rel="noopener">For Paws</a>
     <a href="https://www.thefrogpondfarm.com/" class="donor-tag" target="_blank" rel="noopener">Frog Pond Farm</a>
@@ -1508,7 +1521,9 @@
     <a href="https://jordankentcamps.com/" class="donor-tag" target="_blank" rel="noopener">Jordan Kent Summer Camp</a>
     <a href="https://www.kidsathearttoys.com/" class="donor-tag" target="_blank" rel="noopener">Kids at Heart</a>
     <a href="https://mykingpins.com/" class="donor-tag" target="_blank" rel="noopener">KingPins Bowling</a>
+    <a href="https://lazydaysbrewing.com/" class="donor-tag" target="_blank" rel="noopener">Lazy Days Brewing</a>
     <a href="https://www.levelbeer.com/" class="donor-tag" target="_blank" rel="noopener">Level Beer</a>
+    <a href="https://www.mamahapa.com/" class="donor-tag" target="_blank" rel="noopener">Mama &amp; Hapa's Zero Waste Shop</a>
     <a href="https://www.mcmenamins.com/" class="donor-tag" target="_blank" rel="noopener">McMenamins</a>
     <a href="https://milagro.org/" class="donor-tag" target="_blank" rel="noopener">Milagro Theatre</a>
     <a href="https://www.morningceramics.com/" class="donor-tag" target="_blank" rel="noopener">Morning Ceramics Studio</a>
@@ -1518,6 +1533,7 @@
     <a href="https://nwescapeexperience.com/" class="donor-tag" target="_blank" rel="noopener">NW Escape Experience</a>
     <a href="https://oakknollwinery.com/" class="donor-tag" target="_blank" rel="noopener">Oak Knoll Winery</a>
     <a href="https://www.oakspark.com/" class="donor-tag" target="_blank" rel="noopener">Oaks Park</a>
+    <a href="https://www.orangetheory.com/" class="donor-tag" target="_blank" rel="noopener">Orangetheory Fitness</a>
     <a href="https://www.ocbeerco.com/" class="donor-tag" target="_blank" rel="noopener">Oregon City Brewing</a>
     <a href="https://www.owlandbeeclaycompany.com/" class="donor-tag" target="_blank" rel="noopener">Owl &amp; Bee Clay Company</a>
     <a href="https://thepeoplescourts.com/" class="donor-tag" target="_blank" rel="noopener">People's Courts</a>
@@ -1532,7 +1548,6 @@
     <a href="https://www.pottedinportland.com/" class="donor-tag" target="_blank" rel="noopener">Potted in Portland</a>
     <a href="https://ripcity.gleague.nba.com/" class="donor-tag" target="_blank" rel="noopener">Rip City Remix</a>
     <a href="https://www.schoolofrock.com/" class="donor-tag" target="_blank" rel="noopener">School of Rock</a>
-    <a href="https://senestrarofamilyortho.com/" class="donor-tag" target="_blank" rel="noopener">Senestraro Orthodontics</a>
     <a href="https://sheboptheshop.com/" class="donor-tag" target="_blank" rel="noopener">SheBop</a>
     <a href="https://www.sidequestescapegames.com/" class="donor-tag" target="_blank" rel="noopener">Side Quest Escape Games</a>
     <a href="https://thesportsbraofficial.com/" class="donor-tag" target="_blank" rel="noopener">Sports Bra</a>
@@ -1542,6 +1557,8 @@
     <a href="https://www.studioonetheater.com/" class="donor-tag" target="_blank" rel="noopener">Studio One Theaters</a>
     <a href="https://www.thebymc.com/" class="donor-tag" target="_blank" rel="noopener">The Bhakti Yoga Movement Center</a>
     <a href="https://www.themudroompdx.com/" class="donor-tag" target="_blank" rel="noopener">The Mud Room</a>
+    <a href="https://theperfumehouse.com/" class="donor-tag" target="_blank" rel="noopener">The Perfume House</a>
+    <a href="https://www.thriftbooks.com/" class="donor-tag" target="_blank" rel="noopener">Thriftbooks</a>
     <a href="https://topgolf.com/" class="donor-tag" target="_blank" rel="noopener">Top Golf</a>
     <a href="https://www.nba.com/blazers/" class="donor-tag" target="_blank" rel="noopener">Trail Blazers</a>
     <a href="https://www.wvv.com/" class="donor-tag" target="_blank" rel="noopener">Willamette Valley Vineyards</a>
