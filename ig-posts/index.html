@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>An Artful Affair — Instagram Posts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0A0A;
+    --fg: #F5F5F5;
+    --neon-pink: #E0207A;
+    --neon-blue: #0098CC;
+    --neon-green: #6B8F00;
+    --neon-orange: #E04A2A;
+    --neon-violet: #8A30C4;
+    --muted: #999;
+    --faint: #555;
+    --border: #2a2a2a;
+    --card: #141414;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  .wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 80px 40px 120px;
+  }
+
+  /* Header */
+  .header { text-align: center; margin-bottom: 70px; }
+  .eyebrow {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+  .title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 92px;
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+  }
+  .title .accent {
+    -webkit-text-stroke: 2px var(--neon-pink);
+    color: transparent;
+  }
+  .subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 30px;
+    color: var(--muted);
+    margin-top: 14px;
+  }
+
+  /* How-to box */
+  .howto {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 26px 30px;
+    margin-bottom: 70px;
+    background: var(--card);
+  }
+  .howto h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 0.04em;
+    margin-bottom: 14px;
+    color: var(--neon-pink);
+  }
+  .howto ol { margin-left: 22px; }
+  .howto li { margin-bottom: 6px; color: var(--fg); }
+  .howto code {
+    background: #1d1d1d;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 13px;
+    color: var(--neon-blue);
+  }
+
+  /* Cards */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+
+  .card {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 40px;
+    align-items: start;
+    border-top: 1px solid var(--border);
+    padding-top: 60px;
+  }
+
+  .preview {
+    background: #000;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    display: block;
+  }
+  .preview img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .meta-block {}
+  .meta-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  .pill {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border: 1px solid var(--faint);
+    border-radius: 3px;
+    color: var(--muted);
+  }
+  .pill.story { border-color: var(--neon-pink); color: var(--neon-pink); }
+  .pill.feed { border-color: var(--neon-blue); color: var(--neon-blue); }
+
+  .post-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 44px;
+    line-height: 1;
+    letter-spacing: 0.03em;
+    margin-bottom: 18px;
+  }
+  .post-name .accent { color: var(--neon-pink); }
+
+  .post-when {
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+
+  .links {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    color: var(--fg);
+    cursor: pointer;
+    background: transparent;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .btn:hover { border-color: var(--neon-pink); color: var(--neon-pink); }
+  .btn.primary {
+    background: var(--neon-pink);
+    color: #fff;
+    border-color: var(--neon-pink);
+  }
+  .btn.primary:hover {
+    background: transparent;
+    color: var(--neon-pink);
+  }
+
+  .caption-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .caption {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px 22px;
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--fg);
+    white-space: pre-wrap;
+    margin-bottom: 14px;
+  }
+
+  .copybtn {
+    background: transparent;
+    border: 1px solid var(--faint);
+    color: var(--muted);
+    padding: 7px 14px;
+    border-radius: 3px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .copybtn:hover { border-color: var(--neon-pink); color: var(--neon-pink); }
+  .copybtn.copied { border-color: var(--neon-green); color: var(--neon-green); }
+
+  .note {
+    margin-top: 22px;
+    padding: 14px 18px;
+    border-left: 2px solid var(--neon-blue);
+    background: rgba(0, 152, 204, 0.05);
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .note strong { color: var(--fg); }
+
+  @media (max-width: 760px) {
+    .wrap { padding: 50px 24px 80px; }
+    .title { font-size: 64px; }
+    .card { grid-template-columns: 1fr; gap: 24px; }
+    .preview { max-width: 280px; margin: 0 auto; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="header">
+    <p class="eyebrow">Abernethy Elementary &middot; Instagram Hand-off</p>
+    <h1 class="title">AN <span class="accent">ARTFUL</span> AFFAIR</h1>
+    <p class="subtitle">Four ready-to-post images &middot; April 2026</p>
+  </header>
+
+  <div class="howto">
+    <h3>For the Instagram Manager</h3>
+    <ol>
+      <li>Each card below has a <strong>preview</strong>, the <strong>PNG file</strong> to download, and a <strong>caption</strong> ready to copy.</li>
+      <li>Right-click the preview &rarr; "Save Image As&hellip;" or click <code>Download PNG</code>.</li>
+      <li>For <strong>stories</strong>: post the PNG, then add a <em>Link sticker</em> pointing to <code>auction.supportabernethy.org</code>.</li>
+      <li>For <strong>feed posts</strong>: include the link in bio (stories are the only place you can link directly).</li>
+      <li>Tag <code>@abernethypta</code> if posting from a personal account.</li>
+    </ol>
+  </div>
+
+  <div class="grid">
+
+    <!-- ===== CARD 1: Story This Saturday ===== -->
+    <div class="card">
+      <a class="preview" href="story-this-saturday.png" target="_blank">
+        <img src="story-this-saturday.png" alt="This Saturday story preview">
+      </a>
+      <div class="meta-block">
+        <div class="meta-row">
+          <span class="pill story">Story</span>
+          <span class="pill">1080 &times; 1920</span>
+        </div>
+        <h2 class="post-name">This <span class="accent">Saturday</span></h2>
+        <p class="post-when">Best to post: Wed Apr 15 &ndash; Fri Apr 17</p>
+        <div class="links">
+          <a class="btn primary" href="story-this-saturday.png" download>Download PNG</a>
+          <a class="btn" href="story-this-saturday.html" target="_blank">Open Live</a>
+        </div>
+        <p class="caption-label">Caption / overlay text</p>
+        <pre class="caption" id="cap-1">This Saturday. An Artful Affair is here.
+
+April 18 · 5–10 PM · 1600 SE Division
+Tickets $100 · Adults only · Gallery Glam · After party to follow
+
+Link in bio &rarr; auction.supportabernethy.org
+
+#AbernethyAuction #AnArtfulAffair #PortlandPTA #SupportAbernethy</pre>
+        <button class="copybtn" data-target="cap-1">Copy Caption</button>
+        <div class="note"><strong>Story tip:</strong> add a Link sticker over the URL with <code>https://auction.supportabernethy.org</code>.</div>
+      </div>
+    </div>
+
+    <!-- ===== CARD 2: Story Bidding Live ===== -->
+    <div class="card">
+      <a class="preview" href="story-bidding-live.png" target="_blank">
+        <img src="story-bidding-live.png" alt="Bidding live story preview">
+      </a>
+      <div class="meta-block">
+        <div class="meta-row">
+          <span class="pill story">Story</span>
+          <span class="pill">1080 &times; 1920</span>
+        </div>
+        <h2 class="post-name">Online Auction <span class="accent">Live</span></h2>
+        <p class="post-when">Best to post: Now through Sun Apr 19</p>
+        <div class="links">
+          <a class="btn primary" href="story-bidding-live.png" download>Download PNG</a>
+          <a class="btn" href="story-bidding-live.html" target="_blank">Open Live</a>
+        </div>
+        <p class="caption-label">Caption / overlay text</p>
+        <pre class="caption" id="cap-2">Bidding is OPEN.
+
+80+ prizes · 19 parties · raffle tickets — all live now and closing Sunday April 19.
+
+You don't need a ticket to the gala to bid. Anyone can play.
+
+Link in bio &rarr; auction.supportabernethy.org
+
+#AbernethyAuction #AnArtfulAffair #SupportAbernethy</pre>
+        <button class="copybtn" data-target="cap-2">Copy Caption</button>
+        <div class="note"><strong>Story tip:</strong> add a Link sticker pointing directly to the BetterWorld auction page so people can bid in one tap.</div>
+      </div>
+    </div>
+
+    <!-- ===== CARD 3: Feed Save the Date ===== -->
+    <div class="card">
+      <a class="preview" href="feed-save-the-date.png" target="_blank">
+        <img src="feed-save-the-date.png" alt="Save the date feed preview">
+      </a>
+      <div class="meta-block">
+        <div class="meta-row">
+          <span class="pill feed">Feed</span>
+          <span class="pill">1080 &times; 1080</span>
+        </div>
+        <h2 class="post-name">Save the <span class="accent">Date</span></h2>
+        <p class="post-when">Evergreen — post anytime this week</p>
+        <div class="links">
+          <a class="btn primary" href="feed-save-the-date.png" download>Download PNG</a>
+          <a class="btn" href="feed-save-the-date.html" target="_blank">Open Live</a>
+        </div>
+        <p class="caption-label">Caption</p>
+        <pre class="caption" id="cap-3">Abernethy's biggest party of the year.
+
+✦ Saturday, April 18, 2026
+✦ 5 – 10 PM
+✦ 1600 SE Division St, Portland
+✦ $100 / person · Adults only
+✦ Gallery Glam · After party to follow
+
+Every ticket directly supports our kids and our school. Don't miss it.
+
+Tickets &rarr; link in bio · auction.supportabernethy.org
+
+#AbernethyAuction #AnArtfulAffair #PortlandPTA #PortlandEvents #SupportAbernethy</pre>
+        <button class="copybtn" data-target="cap-3">Copy Caption</button>
+      </div>
+    </div>
+
+    <!-- ===== CARD 4: Feed Gallery Glam ===== -->
+    <div class="card">
+      <a class="preview" href="feed-gallery-glam.png" target="_blank">
+        <img src="feed-gallery-glam.png" alt="Gallery Glam feed preview">
+      </a>
+      <div class="meta-block">
+        <div class="meta-row">
+          <span class="pill feed">Feed</span>
+          <span class="pill">1080 &times; 1080</span>
+        </div>
+        <h2 class="post-name">Gallery <span class="accent">Glam</span></h2>
+        <p class="post-when">Dress code teaser — post a few days before</p>
+        <div class="links">
+          <a class="btn primary" href="feed-gallery-glam.png" download>Download PNG</a>
+          <a class="btn" href="feed-gallery-glam.html" target="_blank">Open Live</a>
+        </div>
+        <p class="caption-label">Caption</p>
+        <pre class="caption" id="cap-4">The dress code is Gallery Glam.
+
+Cocktail attire with a neon edge. Sequins, velvet, color, statement pieces — wear the art, be the art.
+
+Saturday, April 18 · 1600 SE Division
+Tickets &rarr; link in bio · auction.supportabernethy.org
+
+#AbernethyAuction #AnArtfulAffair #GalleryGlam #PortlandStyle</pre>
+        <button class="copybtn" data-target="cap-4">Copy Caption</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.copybtn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var target = document.getElementById(btn.dataset.target);
+      navigator.clipboard.writeText(target.textContent).then(function() {
+        var orig = btn.textContent;
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(function() {
+          btn.textContent = orig;
+          btn.classList.remove('copied');
+        }, 1600);
+      });
+    });
+  });
+</script>
+</body>
+</html>
