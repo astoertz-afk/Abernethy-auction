@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Live Auction One-Pagers — An Artful Affair</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<style>
+  :root {
+    --ink: #000;
+    --paper: #FFF;
+    --muted: #555;
+    --faint: #999;
+  }
+
+  @page { size: 8.5in 11in; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Space Mono', monospace;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .page {
+    width: 8.5in;
+    height: 11in;
+    page-break-after: always;
+    position: relative;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* ===== BANNER HEADER ===== */
+  .banner {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 12px 0.6in;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .banner-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .banner-lot {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.12em;
+  }
+  .banner-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+  }
+  .banner-brand strong {
+    font-family: 'Bebas Neue', sans-serif;
+    font-style: normal;
+    letter-spacing: 0.08em;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  /* ===== BODY ===== */
+  .onepager {
+    flex: 1;
+    padding: 0.5in 0.6in 0.4in;
+    display: grid;
+    grid-template-columns: 4.7in 1fr;
+    grid-template-rows: auto 1fr auto;
+    gap: 0.25in 0.35in;
+    overflow: hidden;
+  }
+
+  .title-block {
+    grid-column: 1 / -1;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .title-block h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 54px;
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    margin-bottom: 6px;
+  }
+  .title-block .subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 20px;
+    line-height: 1.3;
+    color: var(--muted);
+  }
+
+  .hero-image {
+    width: 4.7in;
+    height: 4.2in;
+    border: 2px solid var(--ink);
+    overflow: hidden;
+    background: #F5F5F5;
+  }
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(100%) contrast(1.05);
+  }
+
+  .side-column {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 0;
+  }
+  .side-qr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    border: 2px solid var(--ink);
+  }
+  .qr-box {
+    width: 2in;
+    height: 2in;
+    padding: 6px;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+  }
+  .qr-box svg { display: block; width: 100%; height: 100%; }
+  .qr-caption {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 0.12em;
+    text-align: center;
+    line-height: 1;
+  }
+  .qr-caption em {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 400;
+    display: block;
+    margin-top: 4px;
+  }
+
+  .meta-stack {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    line-height: 1.6;
+  }
+  .meta-stack dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 10px;
+  }
+  .meta-stack dt {
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .meta-stack dd {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .meta-stack h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.15em;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--ink);
+  }
+
+  /* ===== DESCRIPTION BELOW ===== */
+  .desc {
+    grid-column: 1 / -1;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    line-height: 1.55;
+    columns: 2;
+    column-gap: 0.35in;
+    overflow: hidden;
+  }
+  .desc p { margin-bottom: 6px; break-inside: avoid; }
+  .desc ul { list-style: none; margin: 4px 0; padding-left: 0; break-inside: avoid; }
+  .desc li { padding-left: 12px; position: relative; margin-bottom: 3px; font-size: 13px; }
+  .desc li::before { content: "—"; position: absolute; left: 0; color: var(--muted); }
+  .desc strong { font-weight: 600; }
+  .desc em { font-style: italic; }
+
+  /* ===== FOOTER ===== */
+  .footer-bar {
+    padding: 10px 0.6in;
+    border-top: 2px solid var(--ink);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .footer-bar .brand-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 400;
+  }
+
+  /* Big attention-grabber for fine print */
+  .pickup-note {
+    padding: 8px 12px;
+    border: 1px dashed var(--ink);
+    font-family: 'Space Mono', monospace;
+    font-size: 9.5px;
+    line-height: 1.5;
+    letter-spacing: 0.03em;
+  }
+  .pickup-note strong {
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+
+<!-- LOT 01 — Gary Hirsch -->
+<section class="page">
+  <div class="banner">
+    <span class="banner-lot">Lot 01 &middot; Live Auction</span>
+    <span class="banner-brand"><strong>An Artful Affair</strong> &middot; 04.18.26</span>
+  </div>
+  <div class="onepager">
+    <div class="title-block">
+      <h1>Original Artwork by Gary Hirsch</h1>
+      <div class="subtitle">&ldquo;How to Make Friends&rdquo; &mdash; signed 3' &times; 2' acrylic on board</div>
+    </div>
+    <div class="hero-image"><img src="images/lot01-hirsch.jpg" alt=""></div>
+    <div class="side-column">
+      <div class="side-qr">
+        <div class="qr-box" data-qr="https://abernethyelementaryschool.betterworld.org/auctions/101-years-2026-2027/items/original-artwork-by-gary-hirsch"></div>
+        <div class="qr-caption">More photos<em>Scan to see all the details</em></div>
+      </div>
+      <div class="meta-stack">
+        <h3>The Details</h3>
+        <dl>
+          <dt>Donor</dt><dd>A family in our community</dd>
+          <dt>Artist</dt><dd>Gary Hirsch</dd>
+          <dt>Size</dt><dd>3 ft &times; 2 ft, signed</dd>
+          <dt>Value</dt><dd>Priceless</dd>
+        </dl>
+      </div>
+      <div class="pickup-note"><strong>Pickup:</strong> Mon 4/20 or Tue 4/21 at the school gazebo.</div>
+    </div>
+    <div class="desc">
+      <p>This extraordinary donation is a signed, original acrylic-on-board painting titled <em>"How to Make Friends"</em> by Gary Hirsch &mdash; generously contributed by a family in our community.</p>
+      <p>Gary Hirsch is a celebrated Portland-based artist known for his joyful, whimsical, and deeply human work. His paintings are instantly recognizable for their warmth, color, and ability to make you feel something the moment you look at them. <em>"How to Make Friends"</em> is a title that could not feel more at home in an auction for our elementary school.</p>
+      <p>Original signed works by Gary rarely come up for auction &mdash; a truly special opportunity for any art lover or collector.</p>
+    </div>
+  </div>
+  <div class="footer-bar">
+    <span>Live Auction &middot; Lot 01</span>
+    <span class="brand-mark">auction.supportabernethy.org</span>
+  </div>
+</section>
+
+<!-- LOT 02 — Loft at Lovett -->
+<section class="page">
+  <div class="banner">
+    <span class="banner-lot">Lot 02 &middot; Live Auction</span>
+    <span class="banner-brand"><strong>An Artful Affair</strong> &middot; 04.18.26</span>
+  </div>
+  <div class="onepager">
+    <div class="title-block">
+      <h1>Loft at Lovett &mdash; 5-Hour Venue Rental</h1>
+      <div class="subtitle">Throw a party, a work retreat, a wedding &mdash; right here in this space</div>
+    </div>
+    <div class="hero-image"><img src="images/lot02-lovett.jpg" alt=""></div>
+    <div class="side-column">
+      <div class="side-qr">
+        <div class="qr-box" data-qr="https://abernethyelementaryschool.betterworld.org/auctions/101-years-2026-2027/items/loft-at-lovett-5-hour-venue-ren"></div>
+        <div class="qr-caption">More photos<em>Scan to see all the details</em></div>
+      </div>
+      <div class="meta-stack">
+        <h3>The Details</h3>
+        <dl>
+          <dt>Donor</dt><dd>Kate Brandy &middot; Lovett Deconstruction</dd>
+          <dt>Rental</dt><dd>5 hours</dd>
+          <dt>Capacity</dt><dd>Up to 75 guests</dd>
+          <dt>Value</dt><dd>Priceless</dd>
+        </dl>
+      </div>
+      <div class="pickup-note"><strong>Booking:</strong> Alison &middot; events@lovettdeconstruction.com. No expiration or blackouts.</div>
+    </div>
+    <div class="desc">
+      <p>Throw the best 40th birthday party, a wedding reception, a work event &mdash; or whatever you're dreaming up &mdash; at the Loft at Lovett. An expansive, one-of-a-kind loft space outfitted with found objects, vintage finds, Lovett-made tables, and bar seating.</p>
+      <p>Perfect for parties up to 75 people, corporate gatherings, team building, and celebrations of all kinds.</p>
+      <ul>
+        <li>Corn hole</li>
+        <li>Wooden foosball</li>
+        <li>Pool table</li>
+        <li>Full kitchen access</li>
+      </ul>
+      <p>Winner receives a 5-hour venue rental.</p>
+    </div>
+  </div>
+  <div class="footer-bar">
+    <span>Live Auction &middot; Lot 02</span>
+    <span class="brand-mark">auction.supportabernethy.org</span>
+  </div>
+</section>
+
+<!-- LOT 03 — Lincoln City -->
+<section class="page">
+  <div class="banner">
+    <span class="banner-lot">Lot 03 &middot; Live Auction</span>
+    <span class="banner-brand"><strong>An Artful Affair</strong> &middot; 04.18.26</span>
+  </div>
+  <div class="onepager">
+    <div class="title-block">
+      <h1>Spacious Lincoln City Beach House</h1>
+      <div class="subtitle">3 nights &middot; 5 bedrooms &middot; sleeps 14 &middot; private hot tub &middot; ocean views</div>
+    </div>
+    <div class="hero-image"><img src="images/lot03-lincoln.jpg" alt=""></div>
+    <div class="side-column">
+      <div class="side-qr">
+        <div class="qr-box" data-qr="https://abernethyelementaryschool.betterworld.org/auctions/101-years-2026-2027/items/spacious-lincoln-city-beach-hous"></div>
+        <div class="qr-caption">More photos<em>Scan to see all the details</em></div>
+      </div>
+      <div class="meta-stack">
+        <h3>The Details</h3>
+        <dl>
+          <dt>Sleeps</dt><dd>Up to 14 guests</dd>
+          <dt>Bedrooms</dt><dd>5 BR / 5 BA</dd>
+          <dt>Length</dt><dd>3 nights</dd>
+          <dt>Value</dt><dd>Priceless</dd>
+        </dl>
+      </div>
+      <div class="pickup-note"><strong>Booking:</strong> Corrie Ragaway &middot; cragaway@icloud.com &middot; 503-516-6522.</div>
+    </div>
+    <div class="desc">
+      <p>Three nights at a five-bedroom, five-bath home on the Oregon coast. Partial Pacific views, a private hot tub, and a spacious interior. Step out to one of two covered balconies with a cup of coffee, or draw a bath in the jetted master tub.</p>
+      <p><strong>Across the street from the sand</strong> and a few blocks from the Oregon Coast Highway &mdash; ideal for beach walks, local shops, and trips to Devil's Lake.</p>
+      <ul>
+        <li>Gourmet kitchen &middot; high-speed WiFi</li>
+        <li>Private hot tub &middot; jetted master tub</li>
+        <li>Foosball &middot; pinball &middot; shuffleboard &middot; arcade</li>
+        <li>Dog-friendly</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bar">
+    <span>Live Auction &middot; Lot 03</span>
+    <span class="brand-mark">auction.supportabernethy.org</span>
+  </div>
+</section>
+
+<!-- LOT 04 — Mexican Villa -->
+<section class="page">
+  <div class="banner">
+    <span class="banner-lot">Lot 04 &middot; Live Auction</span>
+    <span class="banner-brand"><strong>An Artful Affair</strong> &middot; 04.18.26</span>
+  </div>
+  <div class="onepager">
+    <div class="title-block">
+      <h1>Mexican Villa &mdash; Casa Madre</h1>
+      <div class="subtitle">San Pancho, Mexico &middot; 3 nights &middot; sleeps 10&ndash;12 &middot; option to extend</div>
+    </div>
+    <div class="hero-image"><img src="images/lot04-mexico.jpg" alt=""></div>
+    <div class="side-column">
+      <div class="side-qr">
+        <div class="qr-box" data-qr="https://abernethyelementaryschool.betterworld.org/auctions/101-years-2026-2027/items/mexican-villa-3-nights-sleeps-12"></div>
+        <div class="qr-caption">More photos<em>Scan to see all the details</em></div>
+      </div>
+      <div class="meta-stack">
+        <h3>The Details</h3>
+        <dl>
+          <dt>Location</dt><dd>San Pancho, Mexico</dd>
+          <dt>Sleeps</dt><dd>10&ndash;12 guests</dd>
+          <dt>Length</dt><dd>3 nights</dd>
+          <dt>Value</dt><dd>Priceless</dd>
+        </dl>
+      </div>
+      <div class="pickup-note"><strong>Valid:</strong> September 2026 &ndash; September 2027, by mutual agreement.</div>
+    </div>
+    <div class="desc">
+      <p>Escape to a secret garden where the jungle meets the ocean. <strong>Casa Madre</strong> is a collection of charming rustic casitas tucked away in Mexico's Riviera Nayarit &mdash; and it's all yours for three nights.</p>
+      <p>Sleeps 10&ndash;12 comfortably. Perfect for a group of couples, a girlfriend getaway, or a family that loves room to spread out.</p>
+      <ul>
+        <li>2 king beds</li>
+        <li>2 queen beds</li>
+        <li>2 twin bunks</li>
+        <li>Fold-out couch &amp; portable bed</li>
+      </ul>
+      <p>Whether you're sipping cocktails in the garden, exploring the village of San Pancho, or doing absolutely nothing on the beach &mdash; this is the kind of trip that stays with you.</p>
+    </div>
+  </div>
+  <div class="footer-bar">
+    <span>Live Auction &middot; Lot 04</span>
+    <span class="brand-mark">auction.supportabernethy.org</span>
+  </div>
+</section>
+
+<!-- LOT 05 — Manzanita -->
+<section class="page">
+  <div class="banner">
+    <span class="banner-lot">Lot 05 &middot; Live Auction</span>
+    <span class="banner-brand"><strong>An Artful Affair</strong> &middot; 04.18.26</span>
+  </div>
+  <div class="onepager">
+    <div class="title-block">
+      <h1>Manzanita Beach House</h1>
+      <div class="subtitle">2 consecutive nights &middot; sleeps 8 &middot; pet-friendly &middot; steps from the beach</div>
+    </div>
+    <div class="hero-image"><img src="images/lot05-manzanita.jpg" alt=""></div>
+    <div class="side-column">
+      <div class="side-qr">
+        <div class="qr-box" data-qr="https://abernethyelementaryschool.betterworld.org/auctions/101-years-2026-2027/items/manzanita-or-beach-house-2-night"></div>
+        <div class="qr-caption">More photos<em>Scan to see all the details</em></div>
+      </div>
+      <div class="meta-stack">
+        <h3>The Details</h3>
+        <dl>
+          <dt>Donor</dt><dd>Meredith Barrett &amp; Aaron Stoertz</dd>
+          <dt>Sleeps</dt><dd>Up to 8 &middot; 3 BR / 2 BA</dd>
+          <dt>Length</dt><dd>2 nights (extensions possible)</dd>
+          <dt>Value</dt><dd>Priceless</dd>
+        </dl>
+      </div>
+      <div class="pickup-note"><strong>Blackouts:</strong> June&ndash;August and major holidays. Valid through May 2027. Direct booking with donors.</div>
+    </div>
+    <div class="desc">
+      <p>Escape to the Oregon coast. A charming 3-bedroom, 2-bath beach house for up to 8 guests &mdash; just steps from the sand. Bring the whole crew, pets included.</p>
+      <p>Browse the home: <strong>airbnb.com/h/windwardlane</strong></p>
+      <ul>
+        <li>2 consecutive nights (option to extend, subject to availability)</li>
+        <li>Pet friendly</li>
+        <li>Steps from the beach</li>
+        <li>Valid through May 2027</li>
+        <li>Excludes summer (June&ndash;August) and major holidays</li>
+      </ul>
+      <p>Winner books directly through Meredith &amp; Aaron.</p>
+    </div>
+  </div>
+  <div class="footer-bar">
+    <span>Live Auction &middot; Lot 05</span>
+    <span class="brand-mark">auction.supportabernethy.org</span>
+  </div>
+</section>
+
+<!-- LOT 06 — Moab -->
+<section class="page">
+  <div class="banner">
+    <span class="banner-lot">Lot 06 &middot; Live Auction</span>
+    <span class="banner-brand"><strong>An Artful Affair</strong> &middot; 04.18.26</span>
+  </div>
+  <div class="onepager">
+    <div class="title-block">
+      <h1>Farmstay in Moab, Utah</h1>
+      <div class="subtitle">4 nights &middot; 2 BR / 2 BA &middot; 15 minutes from Arches</div>
+    </div>
+    <div class="hero-image"><img src="images/lot06-moab.jpg" alt=""></div>
+    <div class="side-column">
+      <div class="side-qr">
+        <div class="qr-box" data-qr="https://abernethyelementaryschool.betterworld.org/auctions/101-years-2026-2027/items/farmstay-moab-utah"></div>
+        <div class="qr-caption">More photos<em>Scan to see all the details</em></div>
+      </div>
+      <div class="meta-stack">
+        <h3>The Details</h3>
+        <dl>
+          <dt>Donor</dt><dd>Tiger Keogh</dd>
+          <dt>Length</dt><dd>4 nights</dd>
+          <dt>Value</dt><dd>$1,600</dd>
+          <dt>Valid</dt><dd>Through end of 2026</dd>
+        </dl>
+      </div>
+      <div class="pickup-note"><strong>Booking:</strong> Quinn Keogh &middot; quinnkeogh@gmail.com &middot; 503-410-2589. <strong>No pets. No full kitchen</strong> (mini fridge + coffee + kettle).</div>
+    </div>
+    <div class="desc">
+      <p>Four nights at a 2-bedroom, 2-bath rental &mdash; two separate rooms, each with its own bath and entrance. One queen bed per room. Booking direct with the owner (not Airbnb).</p>
+      <ul>
+        <li>Quiet country setting with scenic views, gardens &amp; dark skies</li>
+        <li>3+ miles from downtown Moab</li>
+        <li>15 minutes from Arches National Park</li>
+        <li>40 minutes from Canyonlands National Park</li>
+        <li>Close to the Moab golf course, disc golf, hiking &amp; jeep trails</li>
+        <li>Private redwood deck &amp; patio &mdash; rim and mountain views</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bar">
+    <span>Live Auction &middot; Lot 06</span>
+    <span class="brand-mark">auction.supportabernethy.org</span>
+  </div>
+</section>
+
+<!-- LOT 07 — Nostrana -->
+<section class="page">
+  <div class="banner">
+    <span class="banner-lot">Lot 07 &middot; Live Auction</span>
+    <span class="banner-brand"><strong>An Artful Affair</strong> &middot; 04.18.26</span>
+  </div>
+  <div class="onepager">
+    <div class="title-block">
+      <h1>Seventeen Summer Wine Tastings</h1>
+      <div class="subtitle">Nostrana's l'Orto garden &middot; for two &middot; 17 Friday evenings all summer</div>
+    </div>
+    <div class="hero-image"><img src="images/lot07-nostrana.jpg" alt=""></div>
+    <div class="side-column">
+      <div class="side-qr">
+        <div class="qr-box" data-qr="https://abernethyelementaryschool.betterworld.org/auctions/101-years-2026-2027/items/two-summer-wine-tastings-nostran"></div>
+        <div class="qr-caption">More photos<em>Scan to see all the details</em></div>
+      </div>
+      <div class="meta-stack">
+        <h3>The Details</h3>
+        <dl>
+          <dt>For</dt><dd>Two guests &middot; 17 evenings</dd>
+          <dt>Where</dt><dd>l'Orto garden (not inside)</dd>
+          <dt>Food</dt><dd>&Agrave; la carte available on site</dd>
+          <dt>Value</dt><dd>Priceless</dd>
+        </dl>
+      </div>
+      <div class="pickup-note"><strong>Non-transferable.</strong> Missed dates cannot be transferred. Rain or shine.</div>
+    </div>
+    <div class="desc">
+      <p>An unforgettable season at <em>l'Orto</em> with an exclusive summer tasting pass for two.</p>
+      <p>Every Friday night, a different winemaker, producer, or regional expert leads a wine tasting. Meet the wine pros, connect with the Nostrana family, and sip your way through a rotating lineup in a truly special setting. Stroll the rows of vegetables, take in the garden at golden hour, and settle into warm summer evenings. <strong>Kid-friendly.</strong></p>
+      <p>Two tastings per Friday, 17 dates total, held rain or shine in the one-acre Nostrana garden &mdash; across the street from the restaurant with its entrance on 14th.</p>
+    </div>
+  </div>
+  <div class="footer-bar">
+    <span>Live Auction &middot; Lot 07</span>
+    <span class="brand-mark">auction.supportabernethy.org</span>
+  </div>
+</section>
+
+<!-- LOT 08 — Kindergarten -->
+<section class="page">
+  <div class="banner">
+    <span class="banner-lot">Lot 08 &middot; Live Auction</span>
+    <span class="banner-brand"><strong>An Artful Affair</strong> &middot; 04.18.26</span>
+  </div>
+  <div class="onepager">
+    <div class="title-block">
+      <h1>Kindergarten &mdash; Splatter Paint</h1>
+      <div class="subtitle">Framed modern art by our littlest artists</div>
+    </div>
+    <div class="hero-image"><img src="images/lot08-kinder.jpg" alt=""></div>
+    <div class="side-column">
+      <div class="side-qr">
+        <div class="qr-box" data-qr="https://abernethyelementaryschool.betterworld.org/auctions/101-years-2026-2027/items/kindergarten-art-project-splatte"></div>
+        <div class="qr-caption">More photos<em>Scan to see all the details</em></div>
+      </div>
+      <div class="meta-stack">
+        <h3>The Details</h3>
+        <dl>
+          <dt>Made by</dt><dd>Abernethy Kindergarten</dd>
+          <dt>Format</dt><dd>Framed, ready to hang</dd>
+          <dt>Value</dt><dd>Priceless</dd>
+        </dl>
+      </div>
+      <div class="pickup-note"><strong>Pickup:</strong> Mon 4/20 or Tue 4/21 at the school gazebo.</div>
+    </div>
+    <div class="desc">
+      <p>A framed piece of modern art made entirely from splatter paint by kindergarten students &mdash; transformed into a bold, striking wall piece.</p>
+      <p>Kindergarten students brought pure, uninhibited energy and creativity to this project, and the result is a colorful explosion of joy that holds its own against any contemporary artwork. Framed and ready to hang, this is the kind of piece that sparks conversation and brings a smile to everyone who sees it.</p>
+      <p>A rare opportunity to own original student art that is genuinely beautiful, full of life, and completely one of a kind.</p>
+    </div>
+  </div>
+  <div class="footer-bar">
+    <span>Live Auction &middot; Lot 08</span>
+    <span class="brand-mark">auction.supportabernethy.org</span>
+  </div>
+</section>
+
+<!-- LOT 09 — 1st Grade -->
+<section class="page">
+  <div class="banner">
+    <span class="banner-lot">Lot 09 &middot; Live Auction</span>
+    <span class="banner-brand"><strong>An Artful Affair</strong> &middot; 04.18.26</span>
+  </div>
+  <div class="onepager">
+    <div class="title-block">
+      <h1>1st Grade &mdash; Handpainted Tablecloth</h1>
+      <div class="subtitle">Pure linen &middot; 60&rdquo; &times; 108&rdquo; &middot; paint-by-number, by hand</div>
+    </div>
+    <div class="hero-image"><img src="images/lot09-first.jpg" alt=""></div>
+    <div class="side-column">
+      <div class="side-qr">
+        <div class="qr-box" data-qr="https://abernethyelementaryschool.betterworld.org/auctions/101-years-2026-2027/items/1st-grade-art-project-paint-by-n"></div>
+        <div class="qr-caption">More photos<em>Scan to see all the details</em></div>
+      </div>
+      <div class="meta-stack">
+        <h3>The Details</h3>
+        <dl>
+          <dt>Made by</dt><dd>Abernethy 1st grade</dd>
+          <dt>Size</dt><dd>60&rdquo; &times; 108&rdquo;</dd>
+          <dt>Material</dt><dd>Pure linen, machine washable</dd>
+          <dt>Value</dt><dd>Priceless</dd>
+        </dl>
+      </div>
+      <div class="pickup-note"><strong>Pickup:</strong> Mon 4/20 or Tue 4/21 at the school gazebo.</div>
+    </div>
+    <div class="desc">
+      <p>A bespoke, artist-designed, kid-painted, pure linen rectangular tablecloth (60&rdquo; &times; 108&rdquo;) &mdash; a joyful addition to any tabletop this summer.</p>
+      <p>Machine washable, imperfectly perfect, and lovingly made by Abernethy's first grade classrooms.</p>
+    </div>
+  </div>
+  <div class="footer-bar">
+    <span>Live Auction &middot; Lot 09</span>
+    <span class="brand-mark">auction.supportabernethy.org</span>
+  </div>
+</section>
+
+<!-- LOT 10 — 2nd Grade -->
+<section class="page">
+  <div class="banner">
+    <span class="banner-lot">Lot 10 &middot; Live Auction</span>
+    <span class="banner-brand"><strong>An Artful Affair</strong> &middot; 04.18.26</span>
+  </div>
+  <div class="onepager">
+    <div class="title-block">
+      <h1>2nd Grade &mdash; Stamp Canvas</h1>
+      <div class="subtitle">20&rdquo; canvas &middot; hand-carved stamps in indigo blue</div>
+    </div>
+    <div class="hero-image"><img src="images/lot10-second.jpg" alt=""></div>
+    <div class="side-column">
+      <div class="side-qr">
+        <div class="qr-box" data-qr="https://abernethyelementaryschool.betterworld.org/auctions/101-years-2026-2027/items/art-project-2nd-grade-stamp-canv"></div>
+        <div class="qr-caption">More photos<em>Scan to see all the details</em></div>
+      </div>
+      <div class="meta-stack">
+        <h3>The Details</h3>
+        <dl>
+          <dt>Made by</dt><dd>Abernethy 2nd grade</dd>
+          <dt>Size</dt><dd>20&rdquo; canvas</dd>
+          <dt>Ink</dt><dd>Indigo blue</dd>
+          <dt>Value</dt><dd>Priceless</dd>
+        </dl>
+      </div>
+      <div class="pickup-note"><strong>Pickup:</strong> Mon 4/20 or Tue 4/21 at the school gazebo.</div>
+    </div>
+    <div class="desc">
+      <p>A 20&rdquo; canvas featuring original stamps hand-created by second grade students, all printed in beautiful indigo blue ink.</p>
+      <p>Each stamp is a tiny masterpiece made by the little hands and big imaginations of our school's second graders &mdash; coming together to create a truly collaborative work of art. A meaningful and one-of-a-kind piece anyone would be proud to display for years to come.</p>
+    </div>
+  </div>
+  <div class="footer-bar">
+    <span>Live Auction &middot; Lot 10</span>
+    <span class="brand-mark">auction.supportabernethy.org</span>
+  </div>
+</section>
+
+<!-- LOT 11 — 3rd Grade -->
+<section class="page">
+  <div class="banner">
+    <span class="banner-lot">Lot 11 &middot; Live Auction</span>
+    <span class="banner-brand"><strong>An Artful Affair</strong> &middot; 04.18.26</span>
+  </div>
+  <div class="onepager">
+    <div class="title-block">
+      <h1>3rd Grade &mdash; Handpainted Chessboard</h1>
+      <div class="subtitle">Mt. Hood-inspired &middot; 46 third graders &middot; vintage board + pieces</div>
+    </div>
+    <div class="hero-image"><img src="images/lot11-third.jpg" alt=""></div>
+    <div class="side-column">
+      <div class="side-qr">
+        <div class="qr-box" data-qr="https://abernethyelementaryschool.betterworld.org/auctions/101-years-2026-2027/items/3rd-grade-art-project-handpainte"></div>
+        <div class="qr-caption">More photos<em>Scan to see all the details</em></div>
+      </div>
+      <div class="meta-stack">
+        <h3>The Details</h3>
+        <dl>
+          <dt>Made by</dt><dd>46 Abernethy 3rd graders</dd>
+          <dt>Includes</dt><dd>Vintage board + pieces</dd>
+          <dt>Theme</dt><dd>Mt. Hood interpretations</dd>
+          <dt>Value</dt><dd>Priceless</dd>
+        </dl>
+      </div>
+      <div class="pickup-note"><strong>Pickup:</strong> Mon 4/20 or Tue 4/21 at the school gazebo.</div>
+    </div>
+    <div class="desc">
+      <p>Inspired by the majesty of Mt. Hood, this hand-painted vintage chessboard (with pieces included) will challenge your mind and delight your eyeballs.</p>
+      <p><strong>Forty-six</strong> of Abernethy's finest 3rd grade artists thoughtfully painted their interpretations of our most beloved mountain. A one-of-a-kind item sure to become an heirloom for one of Abernethy's luckiest families.</p>
+    </div>
+  </div>
+  <div class="footer-bar">
+    <span>Live Auction &middot; Lot 11</span>
+    <span class="brand-mark">auction.supportabernethy.org</span>
+  </div>
+</section>
+
+<!-- LOT 12 — 5th Grade -->
+<section class="page">
+  <div class="banner">
+    <span class="banner-lot">Lot 12 &middot; Live Auction</span>
+    <span class="banner-brand"><strong>An Artful Affair</strong> &middot; 04.18.26</span>
+  </div>
+  <div class="onepager">
+    <div class="title-block">
+      <h1>5th Grade &mdash; Rope Wall Hanging</h1>
+      <div class="subtitle">Every strand hand-tied by a different child &middot; Class of 2026</div>
+    </div>
+    <div class="hero-image"><img src="images/lot12-fifth.jpg" alt=""></div>
+    <div class="side-column">
+      <div class="side-qr">
+        <div class="qr-box" data-qr="https://abernethyelementaryschool.betterworld.org/auctions/101-years-2026-2027/items/5th-grade-art-project-rope-wall"></div>
+        <div class="qr-caption">More photos<em>Scan to see all the details</em></div>
+      </div>
+      <div class="meta-stack">
+        <h3>The Details</h3>
+        <dl>
+          <dt>Made by</dt><dd>Abernethy 5th grade (Class of 2026)</dd>
+          <dt>Format</dt><dd>Ready to hang</dd>
+          <dt>Value</dt><dd>Priceless</dd>
+        </dl>
+      </div>
+      <div class="pickup-note"><strong>Pickup:</strong> Mon 4/20 or Tue 4/21 at the school gazebo.</div>
+    </div>
+    <div class="desc">
+      <p>A unique collaborative rope wall hanging crafted entirely by fifth grade students, with <strong>each strand hand-tied by a different child</strong>.</p>
+      <p>Woven together from the creativity and effort of an entire grade, this piece is a testament to what kids can create when they work together toward something beautiful. A warm, textural statement piece that would look stunning in any home &mdash; and carries the special story of the hands that made it.</p>
+    </div>
+  </div>
+  <div class="footer-bar">
+    <span>Live Auction &middot; Lot 12</span>
+    <span class="brand-mark">auction.supportabernethy.org</span>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('[data-qr]').forEach(el => {
+    const qr = qrcode(0, 'M');
+    qr.addData(el.dataset.qr);
+    qr.make();
+    el.innerHTML = qr.createSvgTag({ cellSize: 8, margin: 2, scalable: true });
+    const svg = el.querySelector('svg');
+    if (svg) {
+      svg.setAttribute('width', '100%');
+      svg.setAttribute('height', '100%');
+      svg.style.display = 'block';
+    }
+  });
+</script>
+</body>
+</html>

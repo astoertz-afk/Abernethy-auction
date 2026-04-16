@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Featured Online Auction — Table Cards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<style>
+  :root {
+    --ink: #000;
+    --paper: #FFF;
+    --muted: #555;
+  }
+
+  @page {
+    size: 8.5in 11in;
+    margin: 0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Space Mono', monospace;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Each letter page holds 2 half-letter cards (5.5" x 8.5" each). */
+  .sheet {
+    width: 8.5in;
+    height: 11in;
+    page-break-after: always;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .sheet:last-child { page-break-after: auto; }
+
+  .card {
+    width: 8.5in;
+    height: 5.5in;
+    padding: 0.4in 0.5in;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px dashed #888; /* cut guide */
+  }
+  .card:last-child { border-bottom: none; }
+
+  /* Cut marks at corners of each card */
+  .card::before, .card::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    pointer-events: none;
+  }
+  .card::before {
+    top: 0; left: 0;
+    border-top: 1px solid #BBB;
+    border-left: 1px solid #BBB;
+  }
+  .card::after {
+    bottom: 0; right: 0;
+    border-bottom: 1px solid #BBB;
+    border-right: 1px solid #BBB;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--ink);
+    margin-bottom: 14px;
+  }
+  .card-eyebrow {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.2em;
+  }
+  .card-eyebrow .serif {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    text-transform: none;
+  }
+  .card-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .card-body {
+    display: flex;
+    gap: 0.3in;
+    flex: 1;
+  }
+  .card-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+  }
+  .card-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.3;
+    color: var(--muted);
+  }
+  .card-hook {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .card-meta {
+    margin-top: auto;
+    padding-top: 10px;
+    display: flex;
+    gap: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .card-meta .pill {
+    border: 1px solid var(--ink);
+    padding: 4px 10px;
+    font-weight: 700;
+  }
+  .card-meta .pill em {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    text-transform: none;
+    font-weight: 400;
+  }
+
+  .card-qr {
+    width: 1.9in;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .qr-box {
+    width: 1.8in;
+    height: 1.8in;
+    padding: 6px;
+    border: 1.5px solid var(--ink);
+    background: var(--paper);
+  }
+  .qr-box svg { display: block; width: 100%; height: 100%; }
+  .qr-caption {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: center;
+  }
+  .qr-caption em {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 400;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .card-footer {
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1px solid var(--ink);
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--muted);
+  }
+  .card-footer .brand-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  @media screen {
+    body { background: #EEE; padding: 30px; }
+    .sheet { margin: 0 auto 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+  }
+</style>
+</head>
+<body>
+
+<!-- SHEET 1: Music Recording + Wine Dinner -->
+<section class="sheet">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-eyebrow">ONLINE AUCTION <span class="serif">&middot; Featured</span></div>
+      <div class="card-brand">An Artful Affair &middot; 04.18.26</div>
+    </div>
+    <div class="card-body">
+      <div class="card-main">
+        <h2 class="card-title">Music Recording &amp; Production Session</h2>
+        <div class="card-subtitle">For aspiring songwriters, podcasters, and closet performers</div>
+        <p class="card-hook">A professional recording and production session to capture something you've been working on &mdash; or to finally start. Bring your song, your story, your sound.</p>
+        <div class="card-meta">
+          <span class="pill">Starting bid <em>$500</em></span>
+          <span class="pill">Bidding closes 4/19 <em>8 PM</em></span>
+        </div>
+      </div>
+      <div class="card-qr">
+        <div class="qr-box" data-qr="https://abernethyelementaryschool.betterworld.org/auctions/101-years-2026-2027/items/music-recording-production-sessi"></div>
+        <div class="qr-caption">Scan to bid<em>Photos &amp; full details</em></div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span>Online Auction &middot; Lot Detail</span>
+      <span class="brand-mark">auction.supportabernethy.org</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-eyebrow">ONLINE AUCTION <span class="serif">&middot; Featured</span></div>
+      <div class="card-brand">An Artful Affair &middot; 04.18.26</div>
+    </div>
+    <div class="card-body">
+      <div class="card-main">
+        <h2 class="card-title">Wine Dinner for Two at Nostrana</h2>
+        <div class="card-subtitle">A proper Portland date night</div>
+        <p class="card-hook">A wine dinner for two at Nostrana &mdash; one of Portland's most beloved Italian restaurants. Thoughtful pairings, seasonal cooking, an unhurried evening.</p>
+        <div class="card-meta">
+          <span class="pill">Starting bid <em>$200</em></span>
+          <span class="pill">Bidding closes 4/19 <em>8 PM</em></span>
+        </div>
+      </div>
+      <div class="card-qr">
+        <div class="qr-box" data-qr="https://abernethyelementaryschool.betterworld.org/auctions/101-years-2026-2027/items/wine-dinner-at-nostrana"></div>
+        <div class="qr-caption">Scan to bid<em>Photos &amp; full details</em></div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span>Online Auction &middot; Lot Detail</span>
+      <span class="brand-mark">auction.supportabernethy.org</span>
+    </div>
+  </div>
+</section>
+
+<!-- SHEET 2: Magic Smiles + Microneedling -->
+<section class="sheet">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-eyebrow">ONLINE AUCTION <span class="serif">&middot; Featured</span></div>
+      <div class="card-brand">An Artful Affair &middot; 04.18.26</div>
+    </div>
+    <div class="card-body">
+      <div class="card-main">
+        <h2 class="card-title">$1,000 Orthodontic Treatment Package</h2>
+        <div class="card-subtitle">Magic Smiles Orthodontics</div>
+        <p class="card-hook">A $1,000 credit toward orthodontic treatment at Magic Smiles &mdash; plus swag. For the kid who's been asking, or the adult who finally wants to.</p>
+        <div class="card-meta">
+          <span class="pill">Starting bid <em>$200</em></span>
+          <span class="pill">Value <em>$1,000+</em></span>
+        </div>
+      </div>
+      <div class="card-qr">
+        <div class="qr-box" data-qr="https://abernethyelementaryschool.betterworld.org/auctions/101-years-2026-2027/items/magic-smiles-1-000-orthodontic-t"></div>
+        <div class="qr-caption">Scan to bid<em>Photos &amp; full details</em></div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span>Online Auction &middot; Lot Detail</span>
+      <span class="brand-mark">auction.supportabernethy.org</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-eyebrow">ONLINE AUCTION <span class="serif">&middot; Featured</span></div>
+      <div class="card-brand">An Artful Affair &middot; 04.18.26</div>
+    </div>
+    <div class="card-body">
+      <div class="card-main">
+        <h2 class="card-title">Consultation + Microneedling Treatment</h2>
+        <div class="card-subtitle">A glow-up, on us</div>
+        <p class="card-hook">A professional consultation and microneedling treatment &mdash; the gold-standard skin refresh. Leave looking like you've had nine hours of sleep and a vacation.</p>
+        <div class="card-meta">
+          <span class="pill">Starting bid <em>$200</em></span>
+          <span class="pill">Bidding closes 4/19 <em>8 PM</em></span>
+        </div>
+      </div>
+      <div class="card-qr">
+        <div class="qr-box" data-qr="https://abernethyelementaryschool.betterworld.org/auctions/101-years-2026-2027/items/consultation-microneedling-treat"></div>
+        <div class="qr-caption">Scan to bid<em>Photos &amp; full details</em></div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span>Online Auction &middot; Lot Detail</span>
+      <span class="brand-mark">auction.supportabernethy.org</span>
+    </div>
+  </div>
+</section>
+
+<!-- SHEET 3: Little Free Library + Boutique Beach Hotel -->
+<section class="sheet">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-eyebrow">ONLINE AUCTION <span class="serif">&middot; Featured</span></div>
+      <div class="card-brand">An Artful Affair &middot; 04.18.26</div>
+    </div>
+    <div class="card-body">
+      <div class="card-main">
+        <h2 class="card-title">Custom Built Little Free Library</h2>
+        <div class="card-subtitle">With installation &mdash; a neighborhood favorite</div>
+        <p class="card-hook">A hand-built Little Free Library, installed at your curb. Become the house every kid on the block stops at on the walk home.</p>
+        <div class="card-meta">
+          <span class="pill">Starting bid <em>$180</em></span>
+          <span class="pill">Installation <em>included</em></span>
+        </div>
+      </div>
+      <div class="card-qr">
+        <div class="qr-box" data-qr="https://abernethyelementaryschool.betterworld.org/auctions/101-years-2026-2027/items/handmade-free-little-library"></div>
+        <div class="qr-caption">Scan to bid<em>Photos &amp; full details</em></div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span>Online Auction &middot; Lot Detail</span>
+      <span class="brand-mark">auction.supportabernethy.org</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-eyebrow">ONLINE AUCTION <span class="serif">&middot; Featured</span></div>
+      <div class="card-brand">An Artful Affair &middot; 04.18.26</div>
+    </div>
+    <div class="card-body">
+      <div class="card-main">
+        <h2 class="card-title">Boutique Beach Hotel Stay</h2>
+        <div class="card-subtitle">Oregon coast weekend</div>
+        <p class="card-hook">A getaway at a boutique coast hotel. Pack light, drive west, and let the view do most of the talking.</p>
+        <div class="card-meta">
+          <span class="pill">Starting bid <em>$160</em></span>
+          <span class="pill">Bidding closes 4/19 <em>8 PM</em></span>
+        </div>
+      </div>
+      <div class="card-qr">
+        <div class="qr-box" data-qr="https://abernethyelementaryschool.betterworld.org/auctions/101-years-2026-2027/items/beach-hotel-stay"></div>
+        <div class="qr-caption">Scan to bid<em>Photos &amp; full details</em></div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span>Online Auction &middot; Lot Detail</span>
+      <span class="brand-mark">auction.supportabernethy.org</span>
+    </div>
+  </div>
+</section>
+
+<!-- SHEET 4: Custom Wood Drawers + Children's B&W Portrait -->
+<section class="sheet">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-eyebrow">ONLINE AUCTION <span class="serif">&middot; Featured</span></div>
+      <div class="card-brand">An Artful Affair &middot; 04.18.26</div>
+    </div>
+    <div class="card-body">
+      <div class="card-main">
+        <h2 class="card-title">Custom Wood Drawers + Knife Organizer</h2>
+        <div class="card-subtitle">Art of Drawers &middot; kitchen design consult</div>
+        <p class="card-hook">A custom wood drawer build with a knife organizer from Art of Drawers &mdash; the upgrade your kitchen has been quietly begging for.</p>
+        <div class="card-meta">
+          <span class="pill">Starting bid <em>$150</em></span>
+          <span class="pill">By <em>Art of Drawers</em></span>
+        </div>
+      </div>
+      <div class="card-qr">
+        <div class="qr-box" data-qr="https://abernethyelementaryschool.betterworld.org/auctions/101-years-2026-2027/items/kitchen-design-organization-cons"></div>
+        <div class="qr-caption">Scan to bid<em>Photos &amp; full details</em></div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span>Online Auction &middot; Lot Detail</span>
+      <span class="brand-mark">auction.supportabernethy.org</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-eyebrow">ONLINE AUCTION <span class="serif">&middot; Featured</span></div>
+      <div class="card-brand">An Artful Affair &middot; 04.18.26</div>
+    </div>
+    <div class="card-body">
+      <div class="card-main">
+        <h2 class="card-title">Children's Black &amp; White Portrait Session</h2>
+        <div class="card-subtitle">A portrait session to frame forever</div>
+        <p class="card-hook">A professional children's black-and-white portrait session &mdash; the kind of images that end up on the mantle, not the camera roll.</p>
+        <div class="card-meta">
+          <span class="pill">Starting bid <em>$125</em></span>
+          <span class="pill">Bidding closes 4/19 <em>8 PM</em></span>
+        </div>
+      </div>
+      <div class="card-qr">
+        <div class="qr-box" data-qr="https://abernethyelementaryschool.betterworld.org/auctions/101-years-2026-2027/items/childrens-black-white-portrait-s"></div>
+        <div class="qr-caption">Scan to bid<em>Photos &amp; full details</em></div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span>Online Auction &middot; Lot Detail</span>
+      <span class="brand-mark">auction.supportabernethy.org</span>
+    </div>
+  </div>
+</section>
+
+<!-- SHEET 5: Commonwealth Skateboard + Clay Studio + Bowl -->
+<section class="sheet">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-eyebrow">ONLINE AUCTION <span class="serif">&middot; Featured</span></div>
+      <div class="card-brand">An Artful Affair &middot; 04.18.26</div>
+    </div>
+    <div class="card-body">
+      <div class="card-main">
+        <h2 class="card-title">Complete Skateboard</h2>
+        <div class="card-subtitle">Commonwealth Skate Shop</div>
+        <p class="card-hook">A complete skateboard from Commonwealth &mdash; SE Portland's beloved skate shop. Deck, trucks, wheels: a full setup, ready to roll.</p>
+        <div class="card-meta">
+          <span class="pill">Starting bid <em>$60</em></span>
+          <span class="pill">From <em>Commonwealth Skate Shop</em></span>
+        </div>
+      </div>
+      <div class="card-qr">
+        <div class="qr-box" data-qr="https://abernethyelementaryschool.betterworld.org/auctions/101-years-2026-2027/items/complete-skateboard-commonwealth"></div>
+        <div class="qr-caption">Scan to bid<em>Photos &amp; full details</em></div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span>Online Auction &middot; Lot Detail</span>
+      <span class="brand-mark">auction.supportabernethy.org</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-eyebrow">ONLINE AUCTION <span class="serif">&middot; Featured</span></div>
+      <div class="card-brand">An Artful Affair &middot; 04.18.26</div>
+    </div>
+    <div class="card-body">
+      <div class="card-main">
+        <h2 class="card-title">Clay Studio Time + Handmade Bowl</h2>
+        <div class="card-subtitle">Afterglow Pottery Studio</div>
+        <p class="card-hook">Studio time to throw your own pot &mdash; plus a handmade bowl to take home if the wheel humbles you. Either way, you win.</p>
+        <div class="card-meta">
+          <span class="pill">Starting bid <em>$45</em></span>
+          <span class="pill">From <em>Afterglow Pottery</em></span>
+        </div>
+      </div>
+      <div class="card-qr">
+        <div class="qr-box" data-qr="https://abernethyelementaryschool.betterworld.org/auctions/101-years-2026-2027/items/handmade-bowl-clay-studio-time"></div>
+        <div class="qr-caption">Scan to bid<em>Photos &amp; full details</em></div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span>Online Auction &middot; Lot Detail</span>
+      <span class="brand-mark">auction.supportabernethy.org</span>
+    </div>
+  </div>
+</section>
+
+<!-- SHEET 6: BotJoy Mural + Clay Wheel Throwing -->
+<section class="sheet">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-eyebrow">ONLINE AUCTION <span class="serif">&middot; Featured</span></div>
+      <div class="card-brand">An Artful Affair &middot; 04.18.26</div>
+    </div>
+    <div class="card-body">
+      <div class="card-main">
+        <h2 class="card-title">BotJoy Mural on Canvas</h2>
+        <div class="card-subtitle">By Gary Hirsch</div>
+        <p class="card-hook">A BotJoy mural on canvas &mdash; Gary Hirsch's instantly-lovable little robots, rendered at wall-worthy scale.</p>
+        <div class="card-meta">
+          <span class="pill">Starting bid <em>$40</em></span>
+          <span class="pill">Artist <em>Gary Hirsch</em></span>
+        </div>
+      </div>
+      <div class="card-qr">
+        <div class="qr-box" data-qr="https://abernethyelementaryschool.betterworld.org/auctions/101-years-2026-2027/items/botjoy-mural-canvas"></div>
+        <div class="qr-caption">Scan to bid<em>Photos &amp; full details</em></div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span>Online Auction &middot; Lot Detail</span>
+      <span class="brand-mark">auction.supportabernethy.org</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-eyebrow">ONLINE AUCTION <span class="serif">&middot; Featured</span></div>
+      <div class="card-brand">An Artful Affair &middot; 04.18.26</div>
+    </div>
+    <div class="card-body">
+      <div class="card-main">
+        <h2 class="card-title">Clay Wheel Throwing Class</h2>
+        <div class="card-subtitle">The Mud Room</div>
+        <p class="card-hook">A wheel throwing class at The Mud Room. First time on a wheel? Bring your sense of humor and an apron.</p>
+        <div class="card-meta">
+          <span class="pill">Starting bid <em>$30</em></span>
+          <span class="pill">From <em>The Mud Room</em></span>
+        </div>
+      </div>
+      <div class="card-qr">
+        <div class="qr-box" data-qr="https://abernethyelementaryschool.betterworld.org/auctions/101-years-2026-2027/items/clay-wheel-throwing-class-mud-ro"></div>
+        <div class="qr-caption">Scan to bid<em>Photos &amp; full details</em></div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span>Online Auction &middot; Lot Detail</span>
+      <span class="brand-mark">auction.supportabernethy.org</span>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('[data-qr]').forEach(el => {
+    const qr = qrcode(0, 'M');
+    qr.addData(el.dataset.qr);
+    qr.make();
+    el.innerHTML = qr.createSvgTag({ cellSize: 8, margin: 2, scalable: true });
+    const svg = el.querySelector('svg');
+    if (svg) {
+      svg.setAttribute('width', '100%');
+      svg.setAttribute('height', '100%');
+      svg.style.display = 'block';
+    }
+  });
+</script>
+</body>
+</html>
